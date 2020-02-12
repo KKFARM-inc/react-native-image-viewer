@@ -18,7 +18,7 @@
   "author": "ascoders",
   "license": "MIT",
   "dependencies": {
-    "react-native-image-pan-zoom": "https://github.com/KKFARM-inc/react-native-image-zoom.git#oursong"
+    "react-native-image-pan-zoom": "https://github.com/KKFARM-inc/react-native-image-zoom#oursong"
   },
   "peerDependencies": {
     "react": "*",
