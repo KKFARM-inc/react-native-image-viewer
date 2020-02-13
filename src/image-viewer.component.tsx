@@ -384,7 +384,14 @@ export default class ImageViewer extends React.Component<Props, State> {
    */
   public handleClick = () => {
     if (this.props.onClick) {
-      this.props.onClick(this.handleCancel, this.state.currentShowIndex);
+      Animated.timing(this.fadeAnim, {
+        toValue: 0,
+        duration: 200
+      }).start(()=>{
+        if (this.props.onClick){
+          this.props.onClick(this.handleCancel, this.state.currentShowIndex);
+        }
+      });
     }
   };
 
