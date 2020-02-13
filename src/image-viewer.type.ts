@@ -79,6 +79,8 @@ export class Props {
    */
   public swipeDownThreshold?: number;
 
+  public backgroundFadeThreshold?: number;
+
   public doubleClickInterval?: number;
 
   /**
