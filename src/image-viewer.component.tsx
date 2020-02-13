@@ -475,7 +475,7 @@ export default class ImageViewer extends React.Component<Props, State> {
           cropWidth={this.width}
           cropHeight={this.height}
           maxOverflow={this.props.maxOverflow}
-          horizontalOuterRangeOffset={this.handleHorizontalOuterRangeOffset}
+          // horizontalOuterRangeOffset={null}
           responderRelease={this.handleResponderRelease}
           onMove={this.props.onMove}
           onLongPress={this.handleLongPressWithIndex.get(index)}
@@ -545,7 +545,7 @@ export default class ImageViewer extends React.Component<Props, State> {
               cropWidth={this.width}
               cropHeight={this.height}
               maxOverflow={this.props.maxOverflow}
-              horizontalOuterRangeOffset={this.handleHorizontalOuterRangeOffset}
+              // horizontalOuterRangeOffset={this.handleHorizontalOuterRangeOffset}
               responderRelease={this.handleResponderRelease}
               onMove={this.props.onMove}
               onLongPress={this.handleLongPressWithIndex.get(index)}
