@@ -1,4 +1,5 @@
 import { TextStyle, ViewStyle } from 'react-native';
+import { getBottomSpace } from 'react-native-iphone-x-helper';
 
 export default (
   width: number,
@@ -35,7 +36,7 @@ export default (
       opacity: 0.2,
       zIndex: 10
     },
-    menuContent: { position: 'absolute', width, left: 0, bottom: 0, zIndex: 11 },
+    menuContent: { backgroundColor: 'white', position: 'absolute', width, left: 0, bottom: 0, zIndex: 11, paddingBottom: getBottomSpace() },
     operateContainer: {
       justifyContent: 'center',
       alignItems: 'center',

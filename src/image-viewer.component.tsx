@@ -672,7 +672,7 @@ export default class ImageViewer extends React.Component<Props, State> {
           <TouchableHighlight
             underlayColor="#F2F2F2"
             onPress={this.handleLeaveMenu}
-            style={this.styles.operateContainer}
+            style={[this.styles.operateContainer,{borderBottomWidth: 0}]}
           >
             <Text style={this.styles.operateText}>{this.props.menuContext.cancel}</Text>
           </TouchableHighlight>
