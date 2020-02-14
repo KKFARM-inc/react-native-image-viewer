@@ -3482,7 +3482,7 @@ react-is@^16.8.1, react-is@^16.8.4:
 
 "react-native-image-pan-zoom@https://github.com/KKFARM-inc/react-native-image-zoom#oursong":
   version "2.1.11"
-  resolved "https://github.com/KKFARM-inc/react-native-image-zoom#04deab447c421fc08cc18a2653bd7aacd29befe6"
+  resolved "https://github.com/KKFARM-inc/react-native-image-zoom#3c20a939fbf14cef9f3c1ea4659e5aa3232fd7aa"
 
 react-native@*:
   version "0.61.5"
