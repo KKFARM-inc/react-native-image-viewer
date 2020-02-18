@@ -228,9 +228,18 @@ export default class ImageViewer extends React.Component<Props, State> {
    * 触发溢出水平滚动
    */
   public handleHorizontalOuterRangeOffset = (offsetX: number = 0) => {
-    this.positionXNumber = this.standardPositionX + offsetX;
-    this.positionX.setValue(this.positionXNumber);
 
+    this.positionXNumber = this.standardPositionX + offsetX;
+    
+    if(offsetX > 0 && this.state.currentShowIndex === 0){
+      return;
+    }
+
+    if(offsetX < 0 && this.state.currentShowIndex === this.props.imageUrls.length -1){
+      return;
+    } 
+
+    this.positionX.setValue(this.positionXNumber);
     const offsetXRTL = !I18nManager.isRTL ? offsetX : -offsetX;
 
     if (offsetXRTL < 0) {
@@ -475,7 +484,7 @@ export default class ImageViewer extends React.Component<Props, State> {
           cropWidth={this.width}
           cropHeight={this.height}
           maxOverflow={this.props.maxOverflow}
-          // horizontalOuterRangeOffset={null}
+          horizontalOuterRangeOffset={this.handleHorizontalOuterRangeOffset}
           responderRelease={this.handleResponderRelease}
           onMove={this.props.onMove}
           onLongPress={this.handleLongPressWithIndex.get(index)}
@@ -545,7 +554,7 @@ export default class ImageViewer extends React.Component<Props, State> {
               cropWidth={this.width}
               cropHeight={this.height}
               maxOverflow={this.props.maxOverflow}
-              // horizontalOuterRangeOffset={this.handleHorizontalOuterRangeOffset}
+              horizontalOuterRangeOffset={this.handleHorizontalOuterRangeOffset}
               responderRelease={this.handleResponderRelease}
               onMove={this.props.onMove}
               onLongPress={this.handleLongPressWithIndex.get(index)}
