@@ -203,6 +203,10 @@ export class Props {
     //
   };
 
+  public onSwipingDown?: (offsetY?: number) => void = () => {
+    //
+  };
+
   /**
    * 渲染loading元素
    */
