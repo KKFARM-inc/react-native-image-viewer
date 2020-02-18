@@ -32,6 +32,7 @@ export default class ImageViewer extends React.Component<Props, State> {
   // 整体位移，用来切换图片用
   private positionXNumber = 0;
   private positionX = new Animated.Value(0);
+  private positionY = 0; 
 
   private width = 0;
   private height = 0;
@@ -229,6 +230,11 @@ export default class ImageViewer extends React.Component<Props, State> {
    */
   public handleHorizontalOuterRangeOffset = (offsetX: number = 0) => {
 
+    // do not allow to scroll to next image, if is swiping down
+    if(this.positionY > 0) {
+      return
+    }
+
     this.positionXNumber = this.standardPositionX + offsetX;
     
     if(offsetX > 0 && this.state.currentShowIndex === 0){
@@ -257,6 +263,9 @@ export default class ImageViewer extends React.Component<Props, State> {
    * 手势结束，但是没有取消浏览大图
    */
   public handleResponderRelease = (vx: number = 0) => {
+    if(this.positionY > 0){
+      return;
+    }
     const vxRTL = I18nManager.isRTL ? -vx : vx;
     const isLeftMove = I18nManager.isRTL
       ? this.positionXNumber - this.standardPositionX < -(this.props.flipThreshold || 0)
@@ -388,6 +397,13 @@ export default class ImageViewer extends React.Component<Props, State> {
     }
   };
 
+  public onMove = (position) => {
+    if(this.props.onMove){
+      this.props.onMove(position);
+    }
+    this.positionY = position.positionY;
+  }
+
   /**
    * 单击
    */
@@ -486,7 +502,7 @@ export default class ImageViewer extends React.Component<Props, State> {
           maxOverflow={this.props.maxOverflow}
           horizontalOuterRangeOffset={this.handleHorizontalOuterRangeOffset}
           responderRelease={this.handleResponderRelease}
-          onMove={this.props.onMove}
+          onMove={this.onMove}
           onLongPress={this.handleLongPressWithIndex.get(index)}
           onClick={this.handleClick}
           onDoubleClick={this.handleDoubleClick}
@@ -556,7 +572,7 @@ export default class ImageViewer extends React.Component<Props, State> {
               maxOverflow={this.props.maxOverflow}
               horizontalOuterRangeOffset={this.handleHorizontalOuterRangeOffset}
               responderRelease={this.handleResponderRelease}
-              onMove={this.props.onMove}
+              onMove={this.onMove}
               onLongPress={this.handleLongPressWithIndex.get(index)}
               onClick={this.handleClick}
               onDoubleClick={this.handleDoubleClick}
