@@ -25,6 +25,7 @@ export default class ImageViewer extends React.Component<Props, State> {
 
   // 背景透明度渐变动画
   private fadeAnim = new Animated.Value(0);
+  private fadeBackgroundAnim = new Animated.Value(1);
 
   // 当前基准位置
   private standardPositionX = 0;
@@ -263,6 +264,10 @@ export default class ImageViewer extends React.Component<Props, State> {
    * 手势结束，但是没有取消浏览大图
    */
   public handleResponderRelease = (vx: number = 0) => {
+    // reset background opacity
+    this.fadeBackgroundAnim.setValue(1);
+
+    // prevent swip down and switch photo at the same time
     if(this.positionY > 0){
       return;
     }
@@ -448,7 +453,7 @@ export default class ImageViewer extends React.Component<Props, State> {
 
       this.width = event.nativeEvent.layout.width;
       this.height = event.nativeEvent.layout.height;
-      this.styles = styles(this.width, this.height, this.props.backgroundColor || 'transparent');
+      this.styles = styles(this.width, this.height, this.props.backgroundColor || 'back');
 
       // 强制刷新
       this.forceUpdate();
@@ -509,6 +514,7 @@ export default class ImageViewer extends React.Component<Props, State> {
           enableSwipeDown={this.props.enableSwipeDown}
           swipeDownThreshold={this.props.swipeDownThreshold}
           backgroundFadeThreshold={this.props.backgroundFadeThreshold}
+          onSwipingDown={this.handleSwipingDown}
           onSwipeDown={this.handleSwipeDown}
           pinchToZoom={this.props.enableImageZoom}
           enableDoubleClickZoom={this.props.enableImageZoom}
@@ -581,6 +587,7 @@ export default class ImageViewer extends React.Component<Props, State> {
               enableSwipeDown={this.props.enableSwipeDown}
               swipeDownThreshold={this.props.swipeDownThreshold}
               backgroundFadeThreshold={this.props.backgroundFadeThreshold}
+              onSwipingDown={this.handleSwipingDown}
               onSwipeDown={this.handleSwipeDown}
               panToMove={!this.state.isShowMenu}
               pinchToZoom={this.props.enableImageZoom && !this.state.isShowMenu}
@@ -615,9 +622,14 @@ export default class ImageViewer extends React.Component<Props, State> {
       }
     });
 
+    const bgColor = this.fadeBackgroundAnim.interpolate({
+      inputRange: [0, 1],
+      outputRange: ['rgba(0,0,0,0)', 'rgba(0,0,0,1)'],
+    });
     return (
       <Animated.View style={{ zIndex: 9 }}>
-        <Animated.View style={{ ...this.styles.container, opacity: this.fadeAnim }}>
+        <Animated.View style={{ ...this.styles.container, backgroundColor: bgColor, 
+            opacity: this.fadeAnim }}>
           {this!.props!.renderHeader!(this.state.currentShowIndex)}
 
           <View style={this.styles.arrowLeftContainer}>
@@ -717,6 +729,11 @@ export default class ImageViewer extends React.Component<Props, State> {
     this.handleCancel();
   };
 
+  public handleSwipingDown = (offsetY: number) => {
+    // should fade background 
+    this.fadeBackgroundAnim.setValue(offsetY);
+  }
+
   public render() {
     let childs: React.ReactElement<any> = null as any;
 
@@ -726,7 +743,6 @@ export default class ImageViewer extends React.Component<Props, State> {
         {this.getMenu()}
       </View>
     );
-
     return (
       <View
         onLayout={this.handleLayout}
