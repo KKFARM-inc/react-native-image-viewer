@@ -397,7 +397,7 @@ export default class ImageViewer extends React.Component<Props, State> {
     }
   };
 
-  public onMove = (position) => {
+  public onMove = (position: any) => {
     if(this.props.onMove){
       this.props.onMove(position);
     }
