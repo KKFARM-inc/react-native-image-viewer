@@ -729,11 +729,9 @@ export default class ImageViewer extends React.Component<Props, State> {
     this.handleCancel();
   };
 
-  public handleSwipingDown = (offsetY?: number) => {
+  public handleSwipingDown = (offsetY: number = 1) => {
     // should fade background 
-    if(offsetY != null){
       this.fadeBackgroundAnim.setValue(offsetY);
-    }
   }
 
   public render() {
