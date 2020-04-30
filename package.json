@@ -18,7 +18,7 @@
   "author": "ascoders",
   "license": "MIT",
   "dependencies": {
-    "react-native-image-pan-zoom": "https://github.com/KKFARM-inc/react-native-image-zoom#fish",
+    "react-native-image-pan-zoom": "https://github.com/KKFARM-inc/react-native-image-zoom#oursong",
     "react-native-iphone-x-helper": "^1.2.0"
   },
   "peerDependencies": {
