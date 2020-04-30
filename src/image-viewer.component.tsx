@@ -267,7 +267,9 @@ export default class ImageViewer extends React.Component<Props, State> {
    */
   public handleResponderRelease = (vx: number = 0) => {
     // reset background opacity
-    this.fadeBackgroundAnim.setValue(1);
+    if(this.props.swipeDownThreshold && this.positionY < this.props.swipeDownThreshold){
+      this.fadeBackgroundAnim.setValue(1);
+    }
 
     // prevent swip down and switch photo at the same time
     if(this.positionY > 0){

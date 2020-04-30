@@ -77,7 +77,7 @@ export class Props {
   /**
    * threshold for firing swipe down function
    */
-  public swipeDownThreshold?: number;
+  public swipeDownThreshold?: number = 230;
 
   public backgroundFadeThreshold?: number;
 
